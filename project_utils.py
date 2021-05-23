@@ -43,6 +43,8 @@ def process_lisa_outputs(outputs):
     for i, obj_shadow_mask in enumerate(obj_shadow_masks):
         assoc = obj_mask_assoc[i]
         indiv_mask_indexes = np.where(indiv_mask_assoc == assoc)[0]
+        
+        print(assoc, indiv_mask_indexes, indiv_pred_classes)
         for ind in indiv_mask_indexes:
             if indiv_pred_classes[ind] == 0:
                 obj_mask_ind = ind
