@@ -5,12 +5,11 @@ def bgr2rgb(image):
     return cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
 def apply_masks_to_img(img, masks, square=False):
-    res_img = img.copy()
-    for mask in masks:
-        print(mask.shape)
-        res_img = apply_mask_to_img(res_img, mask, square)
-
-    return res_img
+    res = img
+    for mask in [masks]:
+        res = apply_mask_to_img(res, mask)
+    
+    return res
 
 def apply_mask_to_img(img, mask, square=False):
     new_img = img.copy()
