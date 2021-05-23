@@ -7,7 +7,8 @@ def bgr2rgb(image):
 def apply_masks_to_img(img, masks, square=False):
     res_img = img.copy()
     for mask in masks:
-        res_img = apply_mask_to_img(res_img, mask)
+        print(mask.shape)
+        res_img = apply_mask_to_img(res_img, mask, square)
 
     return res_img.astype(np.int8)
 
