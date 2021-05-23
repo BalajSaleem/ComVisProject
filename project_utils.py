@@ -31,15 +31,23 @@ def square_mask(mask):
     return res_mask
 
 def process_lisa_outputs(outputs):
-    indiv_masks, obj_shadow_masks = outputs
+    indiv_masks_instances, obj_shadow_masks_instances = outputs
 
-    indiv_masks = indiv_masks[0]['instances'].pred_masks
-    obj_shadow_masks = obj_shadow_masks[0]['instances'].pred_masks
-
-    assert len(indiv_masks) == 2 * len(obj_shadow_masks)
+    indiv_masks = indiv_masks_instances[0]['instances'].pred_masks
+    indiv_mask_assoc = indiv_masks_instances[0]['instances'].pred_associations
+    indiv_pred_classes = indiv_masks_instances[0]['instances'].pred_classes
+    obj_shadow_masks = obj_shadow_masks_instances[0]['instances'].pred_masks
+    obj_mask_assoc = obj_shadow_masks_instances[0]['instances'].pred_associations
     
     processed_masks = []
     for i, obj_shadow_mask in enumerate(obj_shadow_masks):
-        processed_masks.append((obj_shadow_mask.squeeze(), np.array(indiv_masks[i])))
+        assoc = obj_mask_assoc[i]
+        indiv_mask_indexes = np.where(indiv_mask_assoc == assoc)[0]
+        for ind in indiv_mask_indexes:
+            if indiv_pred_classes[ind] == 0:
+                obj_mask_ind = ind
+                break
+
+        processed_masks.append((obj_shadow_mask.squeeze(), np.array(indiv_masks[obj_mask_ind])))
 
     return processed_masks

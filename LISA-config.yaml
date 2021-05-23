@@ -1,6 +1,6 @@
 _BASE_: "../InstanceShadowDetection/projects/LISA/config/Base-RCNN-FPN.yaml"
 MODEL:
-  WEIGHTS: "../InstanceShadowDetection/projects/LISA/output_light/last_checkpoint.pth"
+  WEIGHTS: "./InstanceShadowDetection/projects/LISA/output_light/last_checkpoint.pth"
   MASK_ON: True
   RESNETS:
     DEPTH: 101
