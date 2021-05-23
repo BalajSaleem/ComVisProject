@@ -10,7 +10,7 @@ def apply_masks_to_img(img, masks, square=False):
         print(mask.shape)
         res_img = apply_mask_to_img(res_img, mask, square)
 
-    return res_img.astype(np.int8)
+    return res_img
 
 def apply_mask_to_img(img, mask, square=False):
     new_img = img.copy()
