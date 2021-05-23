@@ -48,7 +48,13 @@ def process_lisa_outputs(outputs):
         obj_mask = np.array(indiv_masks[i])
         assoc = indiv_mask_assoc[i]
         obj_shadow_mask_ind = np.where(np.array(obj_shadow_mask_assoc) == assoc)[0]
-        obj_shadow_mask = obj_mask.copy() if len(obj_shadow_mask_ind) == 0 else obj_shadow_masks[obj_shadow_mask_ind][0].squeeze()
+
+        print(assoc, obj_shadow_mask_ind)
+
+        if len(obj_shadow_mask_ind) == 0:
+            obj_shadow_mask = obj_mask.copy()
+        else:
+            obj_shadow_mask = obj_shadow_masks[obj_shadow_mask_ind][0].squeeze()
 
         processed_masks.append((obj_mask, obj_shadow_mask))
 
