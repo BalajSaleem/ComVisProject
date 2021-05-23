@@ -18,8 +18,12 @@ class SOBADatasetManager:
 
         return cv.imread(self._annotation_data['images'][ind]['file_name'])
 
+    def get_imgs(self, indx):
+        return [self.get_img(ind) for ind in indx]
+
     def get_rand_img(self):
         ind = np.random.randint(0, self.image_no)
+        print(ind)
         return self.get_img(ind)
 
     def sample_images(self, sample_no):
