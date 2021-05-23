@@ -54,7 +54,7 @@ def process_lisa_outputs(outputs):
         if len(obj_shadow_mask_ind) == 0:
             obj_shadow_mask = obj_mask.copy()
         else:
-            obj_shadow_mask = obj_shadow_masks[obj_shadow_mask_ind][0].squeeze()
+            obj_shadow_mask = obj_shadow_masks[obj_shadow_mask_ind[0]].squeeze()
 
         processed_masks.append((obj_mask, obj_shadow_mask))
 
