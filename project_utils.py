@@ -37,19 +37,19 @@ def process_lisa_outputs(outputs):
     indiv_mask_assoc = indiv_masks_instances[0]['instances'].pred_associations
     indiv_pred_classes = indiv_masks_instances[0]['instances'].pred_classes
     obj_shadow_masks = obj_shadow_masks_instances[0]['instances'].pred_masks
-    obj_mask_assoc = obj_shadow_masks_instances[0]['instances'].pred_associations
+    obj_shadow_mask_assoc = obj_shadow_masks_instances[0]['instances'].pred_associations
     
     processed_masks = []
-    for i, obj_shadow_mask in enumerate(obj_shadow_masks):
-        assoc = obj_mask_assoc[i]
-        indiv_mask_indexes = np.where(np.array(indiv_mask_assoc) == assoc)[0]
-        
-        print(assoc, indiv_mask_indexes, indiv_pred_classes)
-        for ind in indiv_mask_indexes:
-            if indiv_pred_classes[ind] == 0:
-                obj_mask_ind = ind
-                break
 
-        processed_masks.append((obj_shadow_mask.squeeze(), np.array(indiv_masks[obj_mask_ind])))
+    for i, pred_class in enumerate(indiv_pred_classes):
+        if pred_class != 0:
+            continue
+        
+        obj_mask = np.array(indiv_masks[i])
+        assoc = indiv_mask_assoc[i]
+        obj_shadow_mask_ind = np.where(np.array(obj_shadow_mask_assoc) == assoc)[0]
+        obj_shadow_mask = obj_mask.copy() if len(obj_shadow_mask_ind) == 0 else obj_shadow_masks[obj_shadow_mask_ind][0].squeeze()
+
+        processed_masks.append((obj_mask, obj_shadow_mask))
 
     return processed_masks
