@@ -5,6 +5,7 @@ import json
 
 class SOBADatasetManager:
     def __init__(self, path_to_dataset):
+        self.dataset_path = path_to_dataset
         self.annotations_path = os.path.join(path_to_dataset, 'annotations/SOBA_val.json') 
 
         with open(self.annotations_path, 'r') as f:
@@ -16,14 +17,14 @@ class SOBADatasetManager:
         if ind < 0 or ind >= self.image_no:
             return None
 
-        return cv.imread(self._annotation_data['images'][ind]['file_name'])
+        img_path = os.path.join(self.dataset_path, self._annotation_data['images'][ind]['file_name'])
+        return cv.imread(img_path)
 
     def get_imgs(self, indx):
         return [self.get_img(ind) for ind in indx]
 
     def get_rand_img(self):
         ind = np.random.randint(0, self.image_no)
-        print(ind)
         return self.get_img(ind)
 
     def sample_images(self, sample_no):
