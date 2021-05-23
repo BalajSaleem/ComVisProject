@@ -6,7 +6,7 @@ import json
 class SOBADatasetManager:
     def __init__(self, path_to_dataset):
         self.dataset_path = path_to_dataset
-        self.annotations_path = os.path.join(path_to_dataset, 'annotations/SOBA_val.json') 
+        self.annotations_path = os.path.join(path_to_dataset, 'annotations/SOBA_train.json') 
 
         with open(self.annotations_path, 'r') as f:
             self._annotation_data = json.load(f)
@@ -17,7 +17,7 @@ class SOBADatasetManager:
         if ind < 0 or ind >= self.image_no:
             return None
 
-        img_path = os.path.join(self.dataset_path, self._annotation_data['images'][ind]['file_name'])
+        img_path = os.path.join(self.dataset_path, 'SOBA', self._annotation_data['images'][ind]['file_name'])
         return cv.imread(img_path)
 
     def get_imgs(self, indx):
