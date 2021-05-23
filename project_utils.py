@@ -61,6 +61,6 @@ def process_lisa_outputs(outputs):
         else:
             obj_shadow_mask = obj_shadow_masks[obj_shadow_mask_ind[0]].squeeze()
 
-        processed_masks.append((obj_mask, obj_shadow_mask))
+        processed_masks.append([obj_mask, obj_shadow_mask])
 
-    return processed_masks
+    return np.array(processed_masks)
