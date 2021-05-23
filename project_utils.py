@@ -4,6 +4,13 @@ import cv2 as cv
 def bgr2rgb(image):
     return cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
+def apply_masks_to_img(img, masks, square=False):
+    res_img = img.copy()
+    for mask in masks:
+        res_img = apply_mask_to_img(res_img, mask)
+
+    return res_img
+
 def apply_mask_to_img(img, mask, square=False):
     new_img = img.copy()
 
@@ -48,8 +55,6 @@ def process_lisa_outputs(outputs):
         obj_mask = np.array(indiv_masks[i])
         assoc = indiv_mask_assoc[i]
         obj_shadow_mask_ind = np.where(np.array(obj_shadow_mask_assoc) == assoc)[0]
-
-        print(assoc, obj_shadow_mask_ind)
 
         if len(obj_shadow_mask_ind) == 0:
             obj_shadow_mask = obj_mask.copy()
