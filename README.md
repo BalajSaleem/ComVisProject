@@ -1,10 +1,12 @@
 # Instance Shadow Segmentation for Image Object Removal
 
+![Example](example.png)
+
 Our work is fundametally built on top of:
 * [Instance Shadow Segmentation](https://github.com/stevewongv/InstanceShadowDetection)
-* [Image Inpainting via Generative Multi-column Convolutional Neural Networks](https://github.com/shepnerd/inpainting_gmcnn)
+* [Partial Convolutions for Image Inpainting using Keras](https://github.com/MathiasGruber/PConv-Keras)
 
-By using a model which detects objects together with their respective shadows (LISA), we can improve on the object removal from images by removing the shadow associated with the shadow as well. For object removel, we employ GM-CNN, a GAN which does image inpainting. 
+By using a model which detects objects together with their respective shadows (LISA), we can improve on the object removal from images by removing the shadow associated with the object as well. For object removal, we employ a model which uses partial convolution to do image inpainting.
 
 # Enviroment
 The notebook should handle the enviroment setup of the models. Access to a GPU is assumed. The code was written to configure a Google Colab instance so if you are running in your own machine you might miss some modules that Colab has by default. Please refer to the two linked repos for more detailed explanations on the dependencies of each model.
@@ -38,11 +40,17 @@ month = {June},
 year = {2020}
 }
 
-@inproceedings{wang2018image,
-title={Image Inpainting via Generative Multi-column Convolutional Neural Networks},
-author={Wang, Yi and Tao, Xin and Qi, Xiaojuan and Shen, Xiaoyong and Jia, Jiaya},
-booktitle={Advances in Neural Information Processing Systems},
-pages={331--340},
-year={2018}
+@inproceedings{liu2018partialpadding,
+author = {Guilin Liu and Kevin J. Shih and Ting-Chun Wang and Fitsum A. Reda and Karan Sapra and Zhiding Yu and Andrew Tao and Bryan Catanzaro},
+title = {Partial Convolution based Padding},
+booktitle = {arXiv preprint arXiv:1811.11718},   
+year = {2018},
+}
+
+@inproceedings{liu2018partialinpainting,
+author = {Guilin Liu and Fitsum A. Reda and Kevin J. Shih and Ting-Chun Wang and Andrew Tao and Bryan Catanzaro},
+title = {Image Inpainting for Irregular Holes Using Partial Convolutions},
+booktitle = {The European Conference on Computer Vision (ECCV)},   
+year = {2018},
 }
 ```
