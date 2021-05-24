@@ -42,7 +42,7 @@ def rel_alt_ela(im, o_im):
 
     return round(np.sum(im_alt_ela - o_im_alt_ela) / im.size, 2)
 
-def eval(results, ela_th = 0, alt_ela_th = 0.01):
+def eval(results, ela_th = 0, alt_ela_th = 0.1):
     results = np.array(results)
     ela_res = results[:, 0] - results[:, 1]
     ela_obj_better = np.sum(ela_res < -ela_th)
