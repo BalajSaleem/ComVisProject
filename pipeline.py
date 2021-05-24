@@ -19,7 +19,7 @@ class LinkedModels:
         return self._internal_state
 
     def rm_objs(self, obj_indx, mask_types, dilation=True):
-        if not self._internal_state:
+        if self._internal_state is None:
             raise Exception('No internal state, call `run_lisa` to set the state')
 
         assert len(obj_indx) == len(mask_types)
@@ -30,24 +30,24 @@ class LinkedModels:
         obj_indx = np.array(obj_indx)
         mask_types = np.array(mask_types)
         
-        idx = np.where(obj_indx >= 0 & obj_indx < self.get_object_no())[0]
+        idx = np.where((obj_indx >= 0) & (obj_indx < self.get_object_no()))[0]
 
         obj_indx = obj_indx[idx]
         mask_types = mask_types[idx]
 
         mask_pairs = self._internal_state[obj_indx]
-        masks = [mask_pairs[mask_type] for mask_type in mask_types]
+        masks = np.array([mask_pairs[i][mask_type] for i, mask_type in enumerate(mask_types)])
 
         return inpaint(self.pconv_model, self._internal_state_image, masks, dilation=dilation)
 
     def get_object_no(self):
-        if self._internal_state:
+        if not self._internal_state is None:
             return len(self._internal_state)
         else:
             return 0
 
     def get_masks(self):
-        if self._internal_state:
+        if not self._internal_state is None:
             return self._internal_state.copy()
         else:
             return None
