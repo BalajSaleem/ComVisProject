@@ -56,7 +56,7 @@ def inpaint(model, img, masks, dilation=True):
   pred_imgs = model.predict([chunked_images, chunked_masks])
   reconstructed_image = chunker.dimension_postprocess(pred_imgs, preped_img)
   
-  return reconstructed_image
+  return (reconstructed_image * 255).astype(np.uint8)
 
 def square_mask(mask):
     h_sums = np.sum(mask.astype(np.int8), axis=1)
