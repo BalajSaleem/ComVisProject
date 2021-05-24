@@ -27,6 +27,8 @@ class SOBADatasetManager:
         ind = np.random.randint(0, self.image_no)
         return self.get_img(ind)
 
-    def sample_images(self, sample_no):
+    def sample_images(self, sample_no, deterministic=False):
+        if deterministic:
+            np.random.seed(1)
         choices = np.random.choice(self.image_no, sample_no)
         return [self.get_img(choice) for choice in choices]
