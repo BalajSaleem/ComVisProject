@@ -1,5 +1,6 @@
 import numpy as np
 import cv2 as cv
+from libs.util import ImageChunker
 
 def bgr2rgb(image):
     return cv.cvtColor(image, cv.COLOR_BGR2RGB)
@@ -41,6 +42,21 @@ def apply_mask_to_img(img, mask, square=False):
     new_img[mask] = (255, 255, 255)
 
     return new_img
+
+def inpaint(model, img, masks, dilation=True):
+  preped_img = prep_image_for_inpainting(img, masks)
+  mask = merge_masks(masks)
+
+  if dilation:
+    mask = dilate_mask(mask)
+
+  chunker = ImageChunker(512, 512, 30)
+  chunked_images = chunker.dimension_preprocess(preped_img)
+  chunked_masks = chunker.dimension_preprocess(prep_mask_for_inpaiting(mask))
+  pred_imgs = model.predict([chunked_images, chunked_masks])
+  reconstructed_image = chunker.dimension_postprocess(pred_imgs, preped_img)
+  
+  return reconstructed_image
 
 def square_mask(mask):
     h_sums = np.sum(mask.astype(np.int8), axis=1)
