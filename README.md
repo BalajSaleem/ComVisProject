@@ -9,24 +9,18 @@ Our work is fundametally built on top of:
 By using a model which detects objects together with their respective shadows (LISA), we can improve on the object removal from images by removing the shadow associated with the object as well. For object removal, we employ a model which uses partial convolution to do image inpainting.
 
 # Environment
-The notebooks should handle their own enviroment setup for their respective tasks. Access to a GPU is assumed in both cases. The demo notebook is built and tested on Google Colab so all the library installations are done accordingly. The training notebook is built  Please refer to the two linked repos for more detailed explanations on the dependencies of each model.
+The notebooks should handle their own enviroment setup for their respective tasks. Access to a GPU is assumed in both cases. The demo notebook is built and tested on Google Colab so all the library installations are done accordingly. The training notebook was run on a 2 GPU machine in order to simulate the original training process. For convenience of those who do not have access to such processing power, training can be done with `LISA-colab-power.yml`, but that setup might not produce as effective weights as the full training. Similarly to the demo, the notebook does not handle the installation of common libaries. Please refer to the two linked repos for more detailed explanations on the dependencies of each model.
 
 * Files need to run the demo and the dataset for training can be found here: [comvis project](https://drive.google.com/drive/folders/11pal1EmQLp_1FND37bCpP3qUTIh_3jEr?usp=sharing)
 
 # Datasets & Training
-The LISA model is trained with the [SOBA](https://drive.google.com/drive/folders/1MKxyq3R6AUeyLai9i9XWzG2C_n5f0ppP) dataset. While the GMCNN Model is trained with pictures of places. This model has three different variations, but the `Places2` and `paris_streetview` are more appropriate for our use case (refer to the GM-CNN repo for more detail). 
+The LISA model is trained with the [SOBA](https://drive.google.com/drive/folders/1MKxyq3R6AUeyLai9i9XWzG2C_n5f0ppP) (original link) dataset. The training notebook in `./notebooks` was used to train, and yield the weights used for the demo.
 
-We use pictures from the SOBA dataset to display our results, since they consist of objects with their images, which is convenient to display our project's capabilities.
+The PConv Model is trained on a modified version of ImageNet. However, we did not train the model ourselves since the inpainter is the not the focus of the project, and use pretrained weights also provided in the *comvis project* link above.
 
-The repos we linked go in greater detail on the procedures required to train the models. For the sake of convenience, our code uses the pretrained weights for both models in order to make predictions.
-
-* [LISA Weights](https://drive.google.com/drive/folders/1MKxyq3R6AUeyLai9i9XWzG2C_n5f0ppP)
-* GM-CNN Weights: [Places2](https://drive.google.com/file/d/1wgesxSUfKGyPwGQMw6IXZ9GLeZ7YNQxu/view?usp=sharing), [paris_streetview](https://drive.google.com/file/d/1aakVS0CPML_Qg-PuXGE1Xaql96hNEKOU/view?usp=sharing)
 
 # Running Experiments
-All our tests can be run through the `Clean ComVis Project.ipynb`. Sequentially run the cells following any instruction in the form of comments or text cells. We performed our tests on Google Colab. 
-
-**Note:** Make sure to have the rest of the files of the repo in the same directory as your notebook. When working with Google Colab, upload these files in the local path (`./`) of the session. 
+All our tests can be run through the `ComVis_Project_Demo.ipynb`. Sequentially run the cells following any instruction in the form of comments or text cells. We performed our tests on Google Colab. 
 
 # Group Members
 * Gledis Zeneli 
