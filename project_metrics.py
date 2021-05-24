@@ -37,10 +37,10 @@ def alt_ela(im):
     return np.array(ela_im)
 
 def rel_alt_ela(im, o_im):
-  im_alt_ela = alt_ela(im)
-  o_im_alt_ela = alt_ela(o_im)
+    im_alt_ela = alt_ela(im)
+    o_im_alt_ela = alt_ela(o_im)
 
-  return round(np.sum(im_alt_ela - o_im_alt_ela) / im.size, 2)
+    return round(np.sum(im_alt_ela - o_im_alt_ela) / im.size, 2)
 
 def eval(results, ela_th = 1, alt_ela_th = 0.1):
     results = np.array(results)
