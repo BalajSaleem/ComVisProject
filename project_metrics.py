@@ -42,16 +42,16 @@ def rel_alt_ela(im, o_im):
 
     return round(np.sum(im_alt_ela - o_im_alt_ela) / im.size, 2)
 
-def eval(results, ela_th = 1, alt_ela_th = 0.1):
+def eval(results, ela_th = 0, alt_ela_th = 0.01):
     results = np.array(results)
     ela_res = results[:, 0] - results[:, 1]
-    ela_obj_better = np.sum(ela_res > ela_th)
-    ela_obj_shadow_better = np.sum(ela_res < -ela_th)
+    ela_obj_better = np.sum(ela_res < -ela_th)
+    ela_obj_shadow_better = np.sum(ela_res > ela_th)
     ela_same = len(results) - ela_obj_better - ela_obj_shadow_better
 
     alt_ela_res = results[:, 2] - results[:, 3]
-    alt_ela_obj_better = np.sum(alt_ela_res > alt_ela_th)
-    alt_ela_obj_shadow_better = np.sum(alt_ela_res < -alt_ela_th)
+    alt_ela_obj_better = np.sum(alt_ela_res < -alt_ela_th)
+    alt_ela_obj_shadow_better = np.sum(alt_ela_res > alt_ela_th)
     alt_ela_same = len(results) - alt_ela_obj_better - alt_ela_obj_shadow_better
 
     ela_obj_avg = round(np.mean(results[:, 0]), 2)
