@@ -13,7 +13,7 @@ def setup_cfg(config_file, confidence_threshold):
     cfg.freeze()
     return cfg
 
-def get_obj_shadow_masks_predictor(image, config_file, confidence_threshold = 0.5):
+def get_obj_shadow_masks_predictor(config_file, confidence_threshold = 0.5):
     cfg = setup_cfg(config_file, confidence_threshold)
     predictor = VisualizationDemo(cfg)
     return predictor
