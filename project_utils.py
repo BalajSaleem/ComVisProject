@@ -4,11 +4,33 @@ import cv2 as cv
 def bgr2rgb(image):
     return cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
+def dilate_mask(mask, size = 20):
+  kernel = np.ones((size,size), np.uint8)
+  img_dilation = cv.dilate(mask.astype(np.uint8), kernel, iterations=1)
+  return img_dilation.astype(bool)
+
 def apply_masks_to_img(image, masks):
-    img = image
+    merged_masks = merge_masks(masks)
+    return apply_mask_to_img(image, merged_masks)
+
+def merge_masks(masks):
+    assert len(masks) > 0
+
+    res_mask = np.zeros(masks[0].shape, dtype=bool)
     for mask in masks:
-        img = apply_mask_to_img(img, mask)
-    return img
+        res_mask[mask == True] = True
+
+    return res_mask
+
+def prep_image_for_inpainting(img, masks):
+  res_img = apply_masks_to_img(img, masks)
+  return bgr2rgb(res_img) / 255
+
+def prep_mask_for_inpaiting(mask):
+    scaled_mask = np.zeros((*mask.shape, 3), dtype=bool)
+    scaled_mask[mask]=(True, True, True)
+
+    return np.abs(1 - scaled_mask.astype(np.int8))
 
 def apply_mask_to_img(img, mask, square=False):
     new_img = img.copy()
