@@ -1,5 +1,7 @@
 # Instance Shadow Segmentation for Image Object Removal
 
+* Implementation of Shadow Object Detection, Pairing and Removal: [paper](https://drive.google.com/file/d/1Hbjk9qihK9ukQSDyz5RKnPLaXpms9o5C/view?usp=sharing)
+
 ![Example](example.png)
 
 Our work is fundametally built on top of:
